@@ -11,11 +11,10 @@ router.post('/dump', (req, res) => {
 
   const firebase = new Firebase('https://parkviz.firebaseio.com/');
 
-  firebase.set({
-    remoteAddress: {
-      distance: distance
-    }
-  });
+  let data = {};
+  data[remoteAddress] = { distance: distance };
+
+  firebase.set(data);
 });
 
 export default router;
