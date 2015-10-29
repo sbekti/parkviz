@@ -1,4 +1,5 @@
 import express from 'express';
+import Firebase from 'firebase';
 
 const router = express.Router();
 
@@ -7,15 +8,14 @@ router.post('/dump', (req, res) => {
   const remoteAddress = req.body.remoteAddress;
 
   console.log(distance, remoteAddress);
-});
 
-router.get('/feed/home', (req, res) => {
-  const token = req.query.oauth_token;
-  const limit = req.query.limit;
-  const newerThan = req.query.newer_than;
-  const olderThan = req.query.older_than;
+  const firebase = new Firebase('https://parkviz.firebaseio.com/');
 
-
+  firebase.set({
+    remoteAddress: {
+      distance: distance
+    }
+  });
 });
 
 export default router;
